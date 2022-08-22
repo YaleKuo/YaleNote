@@ -1,6 +1,6 @@
 TODO：
 	3/1报名
-	Matplotlib Pyplot	
+	LandingAI
 	拉格朗日乘数λ/拉格朗日乘子法	平面方程Ax+By+Cz+D=0	sigmoid/f' = f * (1 - f)	
 	递归/队列
 	git commit -m "comment"	git config --system --unset credential.helper

@@ -225,7 +225,6 @@ process n.过程,进程;工序,制作法;工艺 v.加工,处理
 fragment n.碎片,小部分,片断
 hostage n.人质
 oxygen n.氧,氧气
-supervise v.管理,监督
 dinner n.正餐,宴会
 such a.这样的;上述的ad.那么pron.这样的人/事物
 school n.学校,(大学里的)学院;上学,学业;学派
@@ -1456,7 +1455,6 @@ hamburger n.汉堡包,牛肉饼
 bee n.蜂,蜜蜂;忙碌的人
 possibly ad.可能地,也许;无论如何
 smile n.微笑,笑容 vi.微笑,露出笑容
-foot n.(pl.feet)脚,足;英尺;底部
 grind v.磨(碎),碾(碎)
 automation n.自动,自动化,自动操作
 divide v.分,划分,分开;分配;(by)除
@@ -1808,7 +1806,6 @@ veteran n.老手,老兵
 jargon n.行话
 otherwise ad.另样,用别的方法;在其他方面conj.要不然
 curve n.曲线,弯曲(物) v.弄弯,成曲形
-horizon n.地平线;眼界,见识
 centimetre n.(centimeter)厘米
 scent n.气味,香味,香水,线索,嗅觉 v.嗅,发觉
 civilize v.(=civilise)使文明,开化
@@ -2144,7 +2141,6 @@ sour a.酸的;发酸的;酸痛的;脾气坏的;刻薄的
 diet n.饮食,食物
 hospitality n.好客,殷勤,款待
 extraordinary a.非常的;格外的;意外的;离奇的;临时的
-foot n.(pl.feet)脚,足;英尺;底部
 spokesman n.发言人
 stool n.凳子;(pl.)大便
 weed n.杂草,野草 v.除草,锄草
@@ -5542,8 +5538,6 @@ preceding a.在前的,在先的
     in contrast to/with
     By contrast, they saw in the preceding hundred years from 1650 to 1750, when England was still a completely agricultural country,
     a period of great abundance and prosperity.
-uniform n.制服,军服 a.相同的,一律的
-    a uniform
 average n.平均,平均数 a.平均的;普通的 v.平均
     average man 平民
     plain man 衣着朴素或相貌平平的人
@@ -5622,3 +5616,15 @@ plot n.秘密计划;情节 v.标绘,绘制;密谋,策划
     plt.plot(sigmoid_inputs, sigmoid_outputs)
 stage n.舞台,戏剧;阶段,时期
     There are no staged changes to commit.
+supervise v.管理,监督
+    Supervised learning is a type of machine learning.
+horizon n.地平线;眼界,见识
+    on the horizon 即将发生的
+    horizontal axis 横轴
+foot n.(pl.feet)脚,足;英尺;底部
+    square feet = feet^2 平方英尺
+uniform n.制服,军服 a.相同的,一律的
+    a uniform
+    uniformity n.统一(性);一致(性);规则(性)
+    the democratizing uniformity of dress and discourse, and the casualness and absence of deference
+    uniformity of the cell size, uniformity of the cell shape
