@@ -1,9 +1,9 @@
 TODO：
 	3/1报名
-	LandingAI
+	Jupyter Notebook/Jupyter Lab/PyCharm	ipython(interactive python)	
+	冰刃/枪神/zephyrus	显存	
 	拉格朗日乘数λ/拉格朗日乘子法	平面方程Ax+By+Cz+D=0	sigmoid/f' = f * (1 - f)	
 	递归/队列
-	git commit -m "comment"	git config --system --unset credential.helper
 
 
 里氏替换原则：在任何父类可以出现的地方，都可以用子类的实例来赋值给父类型的引用。
