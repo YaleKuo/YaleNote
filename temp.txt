@@ -1,8 +1,8 @@
 TODO：
-	3/1报名
-	华为云用什么显卡	matebook x pro	
-	冰刃/枪神/zephyrus	显存	
-	拉格朗日乘数λ/拉格朗日乘子法	平面方程Ax+By+Cz+D=0	sigmoid/f' = f * (1 - f)	
+	3/1报名	1800题	
+	华为云用什么显卡	matebook x pro
+	AI数学	拉格朗日乘数λ/拉格朗日乘子法	平面方程Ax+By+Cz+D=0	sigmoid/f' = f * (1 - f)
+	cost function	
 	递归/队列
  
 
