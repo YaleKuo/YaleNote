@@ -6,7 +6,9 @@ kinship 亲情
     Someday, you will find that careers, kinship and friendship are more important than love itself.（kinship也可写作family或parents）
 lenient adj.仁慈的
     The problem is that we are too strict with others and too lenient with ourselves.
-
+convention n. 惯例，习俗，规矩；会议； 全体与会者； 国际公约
+    by convention 按照惯例
+    
 
 ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 closure n/v
