@@ -1,7 +1,7 @@
 TODO：
-	3/1报名	1800题	
-	近眼显示技术	powershell/cmd	GNU/Apache/GPL	python api url	
-	AI数学	拉格朗日乘数λ/拉格朗日乘子法	平面方程Ax+By+Cz+D=0	sigmoid/f' = f * (1 - f)
+	3/1报名	1800题	python caculus	
+	学习率	np.array/matrix		plt.scatter
+	拉格朗日乘数λ/拉格朗日乘子法	平面方程Ax+By+Cz+D=0	sigmoid/f' = f * (1 - f)
 	递归/队列
  
 
