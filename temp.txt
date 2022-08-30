@@ -1,6 +1,9 @@
 TODO：
-	3/1报名	1800题	python caculus	
-	学习率	np.array/matrix		plt.scatter
+	3/1报名	1800题	
+	
+	python/caculus
+
+	np.linspace		np.linalg		
 	拉格朗日乘数λ/拉格朗日乘子法	平面方程Ax+By+Cz+D=0	sigmoid/f' = f * (1 - f)
 	递归/队列
  
