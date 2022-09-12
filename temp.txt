@@ -1,8 +1,13 @@
 TODO：
-	3/1报名		国庆/大数据		1800题	
-	Java stream		SpringCloud技术组成		
+	3/1报名		国庆/大数据		1800题		非重点/牛客网	怠时/人文	棉签
+	SpringCloud技术组成		
 	递归/队列	快排
 	np.linspace		np.linalg	vscode打开jupyter notebook
+
+
+https://www.runoob.com/manual/jdk11api/java.base/java/nio/charset/Charset.html Charset.java（错误描述：Char类型在Java语言里面存储的是ASCII码。）
+	https://blog.csdn.net/test253506088/article/details/119817850
+Python定义常量	
 
 
 
