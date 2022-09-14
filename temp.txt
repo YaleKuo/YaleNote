@@ -4,10 +4,57 @@ TODO：
 	递归/队列	快排
 	np.linspace		np.linalg	vscode打开jupyter notebook
 
+下列代码运行结果是？
+public class Test
+{
+	static boolean foo(char c)
+	{
+		System.out.print(c);
+		return true;
+	}
+	public static void main( String[] argv )
+	{
+		int i = 0;
+		for ( foo('A'); foo('B') && (i < 2); foo('C'))
+		{
+			i++ ;
+			foo('D');
+		}
+	}
+}
+ ABDCBDCB
+ ABCDABCD
+ Compilation fails.
+ An exception is thrown at runtime.
 
-https://www.runoob.com/manual/jdk11api/java.base/java/nio/charset/Charset.html Charset.java（错误描述：Char类型在Java语言里面存储的是ASCII码。）
-	https://blog.csdn.net/test253506088/article/details/119817850
-Python定义常量	
+下列程序执行后结果为？
+  class A {
+     public int func1(int a, int b) {
+         return a - b;
+     }
+ }
+ class B extends A {
+     public int func1(int a, int b) {
+         return a + b;
+     }
+ }
+ public class ChildClass {
+     public static void main(String[] args) {
+     A a = new B();
+     B b = new B();
+     System.out.println("Result=" + a.func1(100, 50));
+     System.out.println("Result=" + b.func1(100, 50));
+     }
+ }
+Result=150
+Result=150
+Result=100
+Result=100
+Result=100
+Result=150
+Result=150
+Result=100
+
 
 
 
