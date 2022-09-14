@@ -1,5 +1,5 @@
 TODO：
-	3/1报名		国庆/大数据		1800题		非重点/牛客网	怠时/人文	五公里/俯卧撑	整理a.md	速读
+	3/1报名		国庆/大数据		1800题		非重点/NC	怠时/人文	五公里/俯卧撑	整理a.md	速读
 	SpringCloud技术组成		
 	递归/队列	快排
 	np.linspace		np.linalg	vscode打开jupyter notebook
