@@ -1,78 +1,337 @@
 TODO：
-	3/1报名		国庆/大数据		1800题		非重点/NC	怠时/人文	五公里/俯卧撑	整理a.md	速读
-	SpringCloud技术组成		
+	3/1报名		国庆/大数据		1800题		非重点/NC	怠时/人文	五公里/俯卧撑	整理a.md	速读	NC/408	NDSC关注	多线程代码
+	SpringCloud技术组成		Mybatis/Spring用到的多线程	https://blog.csdn.net/Evankaka?type=blog	
 	递归/队列	快排
 	np.linspace		np.linalg	vscode打开jupyter notebook
 
-下列代码运行结果是？
-public class Test
-{
-	static boolean foo(char c)
-	{
-		System.out.print(c);
-		return true;
+
+
+—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
+
+下面哪个行为被打断不会导致InterruptedException？
+Thread.join
+Thread.sleep
+Object.wait
+CyclicBarrier.await
+Thread.suspend
+
+https://blog.csdn.net/Evankaka/article/details/44153709?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522163741453716780265492568%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=163741453716780265492568&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~top_positive~default-1-44153709.pc_v2_rank_blog_default&utm_term=%E5%A4%9A%E7%BA%BF%E7%A8%8B&spm=1018.2226.3001.4450
+
+package com.multithread.learning;
+/**
+ *@functon 多线程学习
+ *@author 林炳文
+ *@time 2015.3.9
+ */
+class Thread1 extends Thread{
+	private String name;
+    public Thread1(String name) {
+       this.name=name;
+    }
+	public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println(name + "运行  :  " + i);
+            try {
+                sleep((int) Math.random() * 10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+       
 	}
-	public static void main( String[] argv )
-	{
-		int i = 0;
-		for ( foo('A'); foo('B') && (i < 2); foo('C'))
-		{
-			i++ ;
-			foo('D');
+}
+public class Main {
+ 
+	public static void main(String[] args) {
+		Thread1 mTh1=new Thread1("A");
+		Thread1 mTh2=new Thread1("B");
+		mTh1.start();
+		mTh2.start();
+ 
+	}
+ 
+}
+
+/**
+ *@functon 多线程学习
+ *@author 林炳文
+ *@time 2015.3.9
+ */
+package com.multithread.runnable;
+class Thread2 implements Runnable{
+	private String name;
+ 
+	public Thread2(String name) {
+		this.name=name;
+	}
+ 
+	@Override
+	public void run() {
+		  for (int i = 0; i < 5; i++) {
+	            System.out.println(name + "运行  :  " + i);
+	            try {
+	            	Thread.sleep((int) Math.random() * 10);
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+	        }
+		
+	}
+	
+}
+public class Main {
+ 
+	public static void main(String[] args) {
+		new Thread(new Thread2("C")).start();
+		new Thread(new Thread2("D")).start();
+	}
+ 
+}
+
+https://blog.csdn.net/maitian_2008/article/details/118582926?spm=1001.2014.3001.5501
+
+class TicketTask implements Runnable{
+	   int ticket=10;
+	   @Override
+	   public void run() {
+		    doTicket();
+	   }
+	   public void doTicket() {
+		  while(true) {
+			  if(ticket<=0)break;
+			  System.out.println(ticket--);
+		  }
+	   }
+   }
+
+public static void main(String[] args) {
+	     TicketTask task=new TicketTask();
+	     Thread t1=new Thread(task);
+	     Thread t2=new Thread(task);
+	     Thread t3=new Thread(task);
+	     
+	     t1.start();
+	     t2.start();
+	     t3.start();  
+   }
+
+class SyncThread implements Runnable {
+	private Object obj1;
+	private Object obj2;
+	public SyncThread(Object o1, Object o2) {
+		this.obj1 = o1;
+		this.obj2 = o2;
+	}
+	@Override
+	public void run() {
+		synchronized (obj1) {
+			work();
+			synchronized (obj2) {
+				work();
+			}
+		}
+	}
+	private void work() {
+		try {Thread.sleep(30000);} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 }
- ABDCBDCB
- ABCDABCD
- Compilation fails.
- An exception is thrown at runtime.
 
-下列程序执行后结果为？
-  class A {
-     public int func1(int a, int b) {
-         return a - b;
-     }
- }
- class B extends A {
-     public int func1(int a, int b) {
-         return a + b;
-     }
- }
- public class ChildClass {
-     public static void main(String[] args) {
-     A a = new B();
-     B b = new B();
-     System.out.println("Result=" + a.func1(100, 50));
-     System.out.println("Result=" + b.func1(100, 50));
-     }
- }
-Result=150
-Result=150
-Result=100
-Result=100
-Result=100
-Result=150
-Result=150
-Result=100
-
-
+public class TestDeadLock01 {
+	public static void main(String[] args)throws Exception {
+		 Object obj1 = new Object();
+		 Object obj2 = new Object();
+		 Thread t1 = new Thread(new SyncThread(obj1, obj2), "t1");
+		 Thread t2 = new Thread(new SyncThread(obj2, obj1), "t2");
+		 t1.start();
+		 t2.start();
+	}
+}
 
 
 —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-依赖倒置原则：抽象不应该依赖于细节，细节应该依赖于抽象。即，高层模块不应该依赖于低层模块，二者都应该依赖于抽象。
-观察者模式中，Subject知道它的观察者，可以有任意多个观察者观察同一个目标。
-高级语言源程序经编译得到与之等价的目标程序可能是汇编语言或机器语言。
-终结符是最终结果，是不能单独出现在产生式左边的。
-宏展开仅仅是字符串的替换，不会对表达式进行计算；宏在编译之前就被处理掉了，它没有机会参与编译，也不会占用内存。
-而函数是一段可以重复使用的代码，会被编译，会给它分配内存，每次调用函数，就是执行这块内存中的代码。
 
-—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-malloc和free函数就对应了C++里面的new和delete关键字。
-四大件中后端更侧重操作系统，前端更侧重计算机网络。
-使用指针是间接获取数据，使用变量名是直接获取数据，前者比后者的代价要高。
-线性表的基本操作中PrintList(L)在ArrayList中没有直接对应的方法，但可以先toArray转数组，然后使用Arrays工具类toString转字符串。
 
-—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+public class ClassTest{
+     String str = new String("hello");
+     char[] ch = {'a','b','c'};
+     public void fun(String str, char ch[]){
+     str="world";
+     ch[0]='d';
+ }
+ public static void main(String[] args) {
+     ClassTest test1 = new ClassTest();
+     test1.fun(test1.str,test1.ch);
+     System.out.print(test1.str + " and ");
+     System.out.print(test1.ch);
+     }
+ }
+ hello and dbc
+ world and abc
+ hello and abc
+ world and dbc
+
+public class Test
+{  
+    public static int aMethod(int i)throws Exception
+    {
+        try{
+            return i/10;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("exception in a aMethod");
+        }finally{
+      System.out.printf("finally");
+        }
+} 
+    public static void main(String[] args){
+        try
+        {
+            aMethod(0);
+        }
+        catch (Exception ex)
+        {
+            System.out.printf("exception in main");
+        }
+        System.out.printf("finished");
+    }
+}
+ exception in main finished
+ finallyfinished
+ exception in main finally
+ finally exception in main finally
+
+public class B
+{
+    public static B t1 = new B();
+    public static B t2 = new B();
+    {
+        System.out.println("构造块");
+    }
+    static
+    {
+        System.out.println("静态块");
+    }
+    public static void main(String[] args)
+    {
+        B t = new B();
+    }
+}
+ 静态块 构造块 构造块 构造块
+ 构造块 静态块 构造块 构造块
+ 构造块 构造块 静态块 构造块
+ 构造块 构造块 构造块 静态块
+
+public class MyClass{
+    static int i;
+    public static void main(String argv[]){
+        System.out.println(i);
+    }
+}
+ 有错误，变量i没有初始化。
+ null
+ 1
+ 0
+
+public class Test {
+    public static void main(String args[]) {
+        int x = -5;
+        int y = -12;
+        System.out.println(y % x);
+    }
+}
+ -1
+ 2
+ 1
+ -2
+
+以下代码的循环次数是？
+public class Test {
+    public static void main(String args[]) {
+        int i = 7;
+        do {
+            System.out.println(--i);
+            --i;
+        } while (i != 0);
+       System.out.println(i);
+    }
+}
+ 0
+ 1
+ 7
+ 无限次
+
+public class Test{ 
+    private static int i=1;
+    public int getNext(){ 
+         return i++;
+    } 
+    public static void main(String [] args){ 
+        Test test=new Test(); 
+        Test testObject=new Test(); 
+        test.getNext(); 
+        testObject.getNext(); 
+        System.out.println(testObject.getNext()); 
+    } 
+}
+ 2
+ 3
+ 4
+ 5
+
+list是一个ArrayList的对象，哪个选项的代码填到//todo delete处，可以在Iterator遍历的过程中正确并安全的删除一个list中保存的对象？
+Iterator it = list.iterator();
+int index = 0;
+while (it.hasNext())
+{
+    Object obj = it.next();
+    if (needDelete(obj))  //needDelete返回boolean，决定是否要删除
+    {
+        //todo delete
+    }
+    index ++;
+}
+ it.remove();
+ list.remove(obj);
+ list.remove(index);
+ list.remove(obj,index);
+
+class Two{
+    Byte x;
+}
+class PassO{
+    public static void main(String[] args){
+        PassO p=new PassO();
+        p.start();
+    }
+    void start(){
+        Two t=new Two();
+        System.out.print(t.x+””);
+        Two t2=fix(t);
+        System.out.print(t.x+” ” +t2.x);
+    }
+    Two fix(Two tt){
+        tt.x=42;
+        return tt;
+    }
+}
+ null null 42
+ null 42 42
+ 0 0 42
+ 0 42 42
+ An exception is thrown at runtime
+ Compilation
+
+
+
+
 
 
 
