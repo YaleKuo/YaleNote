@@ -2,115 +2,14 @@ TODO：
 	3/1报名		国庆/大数据		1800题	人文	a.md	速读	俯卧撑	项目	cmsblogs	211111	\10career
 	SpringCloud技术组成		Mybatis/Spring用到的多线程	https://blog.csdn.net/Evankaka?type=blog	
 	递归/队列	快排
-	np.linspace		np.linalg	vscode打开jupyter notebook
-
-
-
-—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+	
 
 
 —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
-子类A继承父类B, A a = new A(); 则父类B构造函数、父类B静态代码块、父类B非静态代码块、子类A构造函数、子类A静态代码块、子类A非静态代码块 执行的先后顺序是？
-父类Ｂ静态代码块-&gt;父类Ｂ构造函数-&gt;子类Ａ静态代码块-&gt;父类Ｂ非静态代码块-&gt;子类Ａ构造函数-&gt;子类Ａ非静态代码块
-父类Ｂ静态代码块-&gt;父类Ｂ构造函数-&gt;父类Ｂ非静态代码块-&gt;子类Ａ静态代码块-&gt;子类Ａ构造函数-&gt;子类Ａ非静态代码块
-父类Ｂ静态代码块-&gt;子类Ａ静态代码块-&gt;父类Ｂ非静态代码块-&gt;父类Ｂ构造函数-&gt;子类Ａ非静态代码块-&gt;子类Ａ构造函数
-父类Ｂ构造函数-&gt;父类Ｂ静态代码块-&gt;父类Ｂ非静态代码块-&gt;子类Ａ静态代码块-&gt;子类Ａ构造函数-&gt;子类Ａ非静态代码块
-class SuperClass {
-    private static String STR = "Super Class Static Variable";
+—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-    static {
-        System.out.println("Super Class Static Block:" + STR);
-    }
-
-    public SuperClass() {
-        System.out.println("Super Class Constructor Method");
-    }
-
-    {
-        System.out.println("Super Class Block");
-    }
-}
-public class ObjectInit extends SuperClass {
-    private static String STR = "Class Static Variable";
-
-    static {
-        System.out.println("Class Static Block:" + STR);
-    }
-
-    public ObjectInit() {
-        System.out.println("Constructor Method");
-    }
-
-    {
-        System.out.println("Class Block");
-    }
-
-    public static void main(String[] args) {
-        @SuppressWarnings("unused")
-        ObjectInit a = new ObjectInit();
-    }
-}
-
-在上下文和头文件正常的情况下，代码
-System.out.println(10%3*2);
-将打印？
-1
-2
-4
-6
-
-以下说法错误的是？
-数组是一个对象
-数组不是一种原生类
-数组的大小可以任意改变
-在Java中，数组存储在堆中连续内存空间里
-
-下列说法正确的是？
-volatile,synchronized<br />都可以修改变量，方法以及代码块
-volatile，synchronized 在多线程中都会存在阻塞问题
-volatile能保证数据的可见性，但不能完全保证数据的原子性，synchronized即保证了数据的可见性也保证了原子性
-volatile解决的是变量在多个线程之间的可见性、原子性，而sychroized解决的是多个线程之间访问资源的同步性
-
-下面说法正确的是？
-调用Thread的sleep()方法会释放锁，调用wait()方法不释放锁
-一个线程调用yield方法，可以使具有相同优先级线程获得处理器
-在Java中，高优先级的可运行的线程会抢占低优先级线程的资源
-java中，线程可以调用yield方法使比自己低优先级的线程运行
-
-下列说法正确的是？
-对于局部内部类，只有在方法的局部变量被标记为final或局部变量是effctively final的，内部类才能使用它们
-成员内部类位于外部类内部，可以直接调用外部类的所有方法（静态方法和非静态方法）
-由于匿名内部类只能用在方法内部，所以匿名内部类的用法与局部内部类是一致的
-静态内部类可以直接访问外部类的非静态成员
-
-public static void main(String args[])throws InterruptedException{
-   	Thread t=new Thread(new Runnable() {
-		public void run() {
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				throw new RuntimeException(e);
-			}
-			System.out.print("2");
-		}
-	});
-   	t.start();
-   	t.join();
-   	System.out.print("1");
-}
-21
-12
-可能为12，也可能为21
-以上答案都不对
-
-下面哪个行为被打断不会导致InterruptedException？
-Thread.join
-Thread.sleep
-Object.wait
-CyclicBarrier.await
-Thread.suspend
 
 https://blog.csdn.net/ThinkWon/article/details/102021274?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166342830716800180679641%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166342830716800180679641&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-102021274-null-null.nonecase&utm_term=%E5%A4%9A%E7%BA%BF%E7%A8%8B&spm=1018.2226.3001.4450
 public class MultiThread {
@@ -168,8 +67,6 @@ public class DeadLockDemo {
 
     }
 }
-
-
 
 
 https://blog.csdn.net/weixin_43884234/article/details/114954221?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166342645116800182123502%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166342645116800182123502&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-114954221-null-null.nonecase&utm_term=%E5%A4%9A%E7%BA%BF%E7%A8%8B&spm=1018.2226.3001.4450
