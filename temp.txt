@@ -795,188 +795,132 @@ public class Server2 {
 
 —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
+https://www.nowcoder.com/questionTerminal/7938af65904043ba8c515b25eb835d7d
+transient 变量和下面哪一项有关？   
+Cloneable
+Serializable
+Runnable
+Comparable
 
-public class ClassTest{
-     String str = new String("hello");
-     char[] ch = {'a','b','c'};
-     public void fun(String str, char ch[]){
-     str="world";
-     ch[0]='d';
- }
- public static void main(String[] args) {
-     ClassTest test1 = new ClassTest();
-     test1.fun(test1.str,test1.ch);
-     System.out.print(test1.str + " and ");
-     System.out.print(test1.ch);
-     }
- }
- hello and dbc
- world and abc
- hello and abc
- world and dbc
+https://www.nowcoder.com/questionTerminal/9cbffe1607ff450580ae665d2625bce9
+关于 访问权限说法正确 的是 ？ (    )
+外部类定义前面可以修饰public,protected和private
+局部内部类前面可以修饰public,protected和private
+匿名内部类前面可以修饰public,protected和private
+以上说法都不正确
 
-public class Test {
-    public static int aMethod(int i) throws Exception {
-        try {
-            return i / 10;
-        } catch (Exception ex) {
-            throw new Exception("exception in a aMethod");
-        } finally {
-            System.out.printf("finally");
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            aMethod(0);
-        } catch (Exception ex) {
-            System.out.printf("exception in main");
-        }
-        System.out.printf("finished");
-    }
-}
- exception in main finished
- finallyfinished
- exception in main finally
- finally exception in main finally
-
-public class B {
-    public static B t1 = new B();
-    public static B t2 = new B();
-
-    {
-        System.out.println("构造块");
-    }
-
-    static {
-        System.out.println("静态块");
-    }
-
-    public static void main(String[] args) {
-        B t = new B();
-    }
-}
- 静态块 构造块 构造块 构造块
- 构造块 静态块 构造块 构造块
- 构造块 构造块 静态块 构造块
- 构造块 构造块 构造块 静态块
-
-public class MyClass{
-    static int i;
-    public static void main(String argv[]){
-        System.out.println(i);
-    }
-}
- 有错误，变量i没有初始化。
- null
- 1
- 0
-
-public class Test {
-    public static void main(String args[]) {
-        int x = -5;
-        int y = -12;
-        System.out.println(y % x);
-    }
-}
- -1
- 2
- 1
- -2
-
-以下代码的循环次数是？
-public class Test {
-    public static void main(String args[]) {
-        int i = 7;
-        do {
-            System.out.println(--i);
-            --i;
-        } while (i != 0);
-       System.out.println(i);
-    }
-}
- 0
- 1
- 7
- 无限次
-
-public class Test{ 
-    private static int i=1;
-    public int getNext(){ 
-         return i++;
-    } 
-    public static void main(String [] args){ 
-        Test test=new Test(); 
-        Test testObject=new Test(); 
-        test.getNext(); 
-        testObject.getNext(); 
-        System.out.println(testObject.getNext()); 
-    } 
-}
- 2
- 3
- 4
- 5
-
-list是一个ArrayList的对象，哪个选项的代码填到//todo delete处，可以在Iterator遍历的过程中正确并安全的删除一个list中保存的对象？
-Iterator it = list.iterator();
-int index = 0;
-while (it.hasNext())
+https://www.nowcoder.com/questionTerminal/8e84f3e504cf436c9dac95b687570c74
+What is the result of compiling and executing the following fragment of code？
+Boolean flag = false;
+if (flag = true)
 {
-    Object obj = it.next();
-    if (needDelete(obj))  //needDelete返回boolean，决定是否要删除
+    System.out.println("true");
+}
+else
+{
+    System.out.println("false");
+}
+The code fails to compile at the &ldquo;if&rdquo; statement.
+An exception is thrown at run-time at the &ldquo;if&rdquo; statement.
+The text&ldquo;true&rdquo; is displayed.
+The text&ldquo;false&rdquo;is displayed.
+Nothing is displayed.
+
+https://www.nowcoder.com/questionTerminal/1aac0e529bdf442c9034ee00f9aa0689
+enum AccountType
+{
+    SAVING, FIXED, CURRENT;
+    private AccountType()
     {
-        //todo delete
-    }
-    index ++;
-}
- it.remove();
- list.remove(obj);
- list.remove(index);
- list.remove(obj,index);
-
-class Two{
-    Byte x;
-}
-class PassO{
-    public static void main(String[] args){
-        PassO p=new PassO();
-        p.start();
-    }
-    void start(){
-        Two t=new Two();
-        System.out.print(t.x+””);
-        Two t2=fix(t);
-        System.out.print(t.x+” ” +t2.x);
-    }
-    Two fix(Two tt){
-        tt.x=42;
-        return tt;
+        System.out.println("It is a account type");
     }
 }
- null null 42
- null 42 42
- 0 0 42
- 0 42 42
- An exception is thrown at runtime
- Compilation
+class EnumOne
+{
+    public static void main(String[]args)
+    {
+        System.out.println(AccountType.FIXED);
+    }
+}
+编译正确，输出”It is a account type”once followed by”FIXED”
+编译正确，输出”It is a account type”twice followed by”FIXED”
+编译正确，输出”It is a account type”thrice followed by”FIXED”
+编译正确，输出”It is a account type”four times followed by”FIXED”
+编译错误
+
+https://www.nowcoder.com/questionTerminal/9e4e6d1f6bc2456aaaaa2dff4c94f9ab
+下面有关 JAVA 异常类的描述,说法正确的有？不定项
+异常的继承结构:基类为 Throwable,Error 和 Exception 。实现 Throwable, RuntimeException 和 IOException 等继承 Exception
+非 RuntimeException 一般是外部错误(不考虑Error的情况下),其可以在当前类被 try{}catch 语句块所捕获
+Error 类体系描述了 Java 运行系统中的内部错误以及资源耗尽的情形,Error 不需要捕捉
+RuntimeException 体系包括错误的类型转换、数组越界访问和试图访问空指针等等,必须 被 try{}catch 语句块所捕获
 
 
+https://www.nowcoder.com/questionTerminal/bcb966db4d2c43768bc077296a8a1017
+以下说法哪个是正确的？不定项
+IOException在编译时会被发现
+NullPointerEception在编译时不会被发现
+SQLException在编译时会被发现
+FileNotFoundException在编译时会被发现
 
+https://www.nowcoder.com/questionTerminal/9bff6cdfda4344f8a691f6f8de6a8229
+以下关于JAVA语言异常处理描述正确的有？不定项
+throw关键字可以在方法上声明该方法要抛出的异常。
+throws用于抛出异常对象。
+try是用于检测被包住的语句块是否出现异常，如果有异常，则捕获异常，并执行catch语句。
+finally语句块是不管有没有出现异常都要执行的内容。
+在try块中不可以抛出异常
 
+https://www.nowcoder.com/questionTerminal/abb0002369e0497cbfc2bcd4800bb343
+ public static void main(String[] args) {
+     System.out.println(val());
+ }
+ public static int val() {
+     int num = 5;
+     try {
+     num = num / 0;
+ } catch (Exception e) {
+     num = 10;
+ } finally {
+     num = 15;
+ }
+ return num;
+ }
+运行时报错
+程序正常运行，输出值为5
+程序正常运行，输出值为10
+程序正常运行，输出值为15
 
+https://www.nowcoder.com/questionTerminal/ecbf77acda8645f3b79e0705a95fc880
+class Value{
+    public int i=15;
+}
+public class Test{
+    public static void main(String argv[]){
+        Test t=new Test( );
+        t.first( );
+    }
 
+public void first( ){
+    int i=5;
+    Value v=new Value( );
+    v.i=25;
+    second(v,i);
+    System.out.println(v.i);
+}
 
-
-
-
-
-
-
-
-
-
-
+public void second(Value v,int i){
+    i = 0;
+    v.i = 20;
+    Value val = new Value( );
+    v = val;
+    System.out.println(v.i+" "+i);
+   }
+}
+15 0 20
+15 0 15
+20 0 20
+0 15 20
 
 
 
