@@ -11,20 +11,6 @@ TODO：
 —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
 
-https://blog.csdn.net/ThinkWon/article/details/102021274?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166342830716800180679641%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166342830716800180679641&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-102021274-null-null.nonecase&utm_term=%E5%A4%9A%E7%BA%BF%E7%A8%8B&spm=1018.2226.3001.4450
-public class MultiThread {
-	public static void main(String[] args) {
-		// 获取 Java 线程管理 MXBean
-		ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
-		// 不需要获取同步的 monitor 和 synchronizer 信息，仅获取线程和线程堆栈信息
-		ThreadInfo[] threadInfos = threadMXBean.dumpAllThreads(false, false);
-		// 遍历线程信息，仅打印线程 ID 和线程名称信息
-		for (ThreadInfo threadInfo : threadInfos) {
-			System.out.println("[" + threadInfo.getThreadId() + "] " + threadInfo.getThreadName());
-		}
-	}
-}
-
 https://blog.csdn.net/ThinkWon/article/details/102020811?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166342830716800180679641%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166342830716800180679641&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-2-102020811-null-null.nonecase&utm_term=%E5%A4%9A%E7%BA%BF%E7%A8%8B&spm=1018.2226.3001.4450
 public class DeadLockDemo {
     private static String resource_a = "A";
@@ -67,7 +53,6 @@ public class DeadLockDemo {
 
     }
 }
-
 
 https://blog.csdn.net/weixin_43884234/article/details/114954221?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166342645116800182123502%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=166342645116800182123502&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_ecpm_v1~rank_v31_ecpm-1-114954221-null-null.nonecase&utm_term=%E5%A4%9A%E7%BA%BF%E7%A8%8B&spm=1018.2226.3001.4450
 package cn.tedu.thread;
@@ -794,20 +779,15 @@ public class Server2 {
 
 
 —————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+Date/DateFormat（ThinkWon）  
 
-https://www.nowcoder.com/questionTerminal/7938af65904043ba8c515b25eb835d7d
-transient 变量和下面哪一项有关？   
-Cloneable
-Serializable
-Runnable
-Comparable
 
-https://www.nowcoder.com/questionTerminal/9cbffe1607ff450580ae665d2625bce9
-关于 访问权限说法正确 的是 ？ (    )
-外部类定义前面可以修饰public,protected和private
-局部内部类前面可以修饰public,protected和private
-匿名内部类前面可以修饰public,protected和private
-以上说法都不正确
+
+
+
+
+—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
 
 https://www.nowcoder.com/questionTerminal/8e84f3e504cf436c9dac95b687570c74
 What is the result of compiling and executing the following fragment of code？
@@ -847,29 +827,6 @@ class EnumOne
 编译正确，输出”It is a account type”thrice followed by”FIXED”
 编译正确，输出”It is a account type”four times followed by”FIXED”
 编译错误
-
-https://www.nowcoder.com/questionTerminal/9e4e6d1f6bc2456aaaaa2dff4c94f9ab
-下面有关 JAVA 异常类的描述,说法正确的有？不定项
-异常的继承结构:基类为 Throwable,Error 和 Exception 。实现 Throwable, RuntimeException 和 IOException 等继承 Exception
-非 RuntimeException 一般是外部错误(不考虑Error的情况下),其可以在当前类被 try{}catch 语句块所捕获
-Error 类体系描述了 Java 运行系统中的内部错误以及资源耗尽的情形,Error 不需要捕捉
-RuntimeException 体系包括错误的类型转换、数组越界访问和试图访问空指针等等,必须 被 try{}catch 语句块所捕获
-
-
-https://www.nowcoder.com/questionTerminal/bcb966db4d2c43768bc077296a8a1017
-以下说法哪个是正确的？不定项
-IOException在编译时会被发现
-NullPointerEception在编译时不会被发现
-SQLException在编译时会被发现
-FileNotFoundException在编译时会被发现
-
-https://www.nowcoder.com/questionTerminal/9bff6cdfda4344f8a691f6f8de6a8229
-以下关于JAVA语言异常处理描述正确的有？不定项
-throw关键字可以在方法上声明该方法要抛出的异常。
-throws用于抛出异常对象。
-try是用于检测被包住的语句块是否出现异常，如果有异常，则捕获异常，并执行catch语句。
-finally语句块是不管有没有出现异常都要执行的内容。
-在try块中不可以抛出异常
 
 https://www.nowcoder.com/questionTerminal/abb0002369e0497cbfc2bcd4800bb343
  public static void main(String[] args) {
