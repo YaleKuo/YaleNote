@@ -1,7 +1,9 @@
 TODO：
-	3/1报名		国庆/大数据		1800题	人文	a.md	速读	俯卧撑	项目	cmsblogs	211111	\10career
-	SpringCloud技术组成		Mybatis/Spring用到的多线程	https://blog.csdn.net/Evankaka?type=blog	
-	递归/队列	快排
+	3/1报名  国庆/大数据  1800题  人文  a.md  速读  俯卧撑  项目  cmsblogs  211111  \10career
+    Mybatis  a.md  this.tail  
+	SpringCloud技术组成  Mybatis/Spring用到的多线程  https://blog.csdn.net/Evankaka?type=blog	
+    vue ui  node.js  react.js  
+	递归/队列  快排
 	
 
 
