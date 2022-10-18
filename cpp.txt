@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+
+int main() {
+	
+	// 求100000以内的自幂数
+	int i = 0;
+	for (i = 0; i < 100000; i++)
+	{
+		int n = 1;
+		int tmp = i;
+		int sum = 0;
+		std::string str = std::to_string(i);
+		n = str.length();// i是n位数
+		tmp = i;
+		while (tmp)
+		{
+			sum += pow(tmp % 10, n);
+			tmp /= 10;
+		}
+		if (i == sum)
+		{
+			printf("%d ", i);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

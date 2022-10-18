@@ -1,0 +1,426 @@
+/*库相关*/
+mysql -uroot -proot--cmd连接MySQL，注意此时还未进入mysql，行末不能加分号
+SHOW DATABASES;--查看所有库
+CREATE DATABASE day01;--创建数据库
+CREATE DATABASE day02 DEFAULT CHARACTER SET utf8;--建议指定默认编码规则utf8(注意不是utf-8)--CHARSET？
+DROP DATABASE day01;--删除数据库
+USE day01;--进入指定数据库
+/*表相关*/
+USE day01;--进入指定数据库
+SHOW TABLES;--查看所有表
+SELECT * from sysdatabases;--SqlServer查看所有表
+CREATE TABLE student(--SQL中没有STRING，而是VARCHAR
+age INT(50),--整数长度无法限制，能存入所有INT范围内的数，但VARCHAR类型长度约束很严谨
+num INT(50),--number是关键字？
+NAME VARCHAR(100)--字段名 字段类型(字段长度)--有必要学会修改字段，否则字段顺序会发生改变
+);
+DESC student;--查看表结构/等价于describe student
+DROP TABLE student;--删除指定表
+ALTER TABLE student DROP COLUMN NAME;--删除字段NAME
+ALTER TABLE student ADD COLUMN NAME VARCHAR(50);--新增字段NAME，不能省略字段类型和字段长度
+ALTER TABLE student ADD COLUMN NAME VARCHAR(50);
+CREATE TABLE student1 AS SELECT * FROM student;--旧表复制
+CREATE TABLE student1 LIKE student;--只拷贝结构
+/*操作表*/
+INSERT INTO student VALUES(23,631604030210,"Yale");
+DELETE FROM student WHERE number = 51;--注意除了SELECT语句，其他语句几乎都是两个词开头
+SELECT * FROM student ORDER BY number;--是ORDER BY，而不是DESC BY
+UPDATE student SET number = 100,NAME = 'Kuo' WHERE NAME = 'Yale';--同时修改多个字段用,隔开，而不是AND
+CREATE TABLE dept(
+deptno INT PRIMARY KEY AUTO_INCREMENT,--主键约束搭配自增，非空唯一
+dname VARCHAR(20),
+loc VARCHAR(13)
+);
+INSERT INTO dept VALUES(null,'accounting','一区');
+INSERT INTO dept VALUES(null,'research','二区');
+INSERT INTO dept VALUES(null,'operations','二区');
+CREATE TABLE emp(
+empno INT PRIMARY KEY AUTO_INCREMENT,
+ename VARCHAR(10),
+job VARCHAR(10),
+mgr INT,
+hiredate DATE,
+sal DOUBLE,
+comm NUMERIC(7,2),
+deptno INT
+);
+INSERT INTO emp VALUES(100,'jack','副总',NULL,'2002-05-1',90000,NULL,1);
+INSERT INTO emp VALUES(200,'tony','总监',100,'2015-02-02',10000,2000,2);
+INSERT INTO emp VALUES(300,'hana','经理',200,'2017-02-02',8000,1000,2);
+INSERT INTO emp VALUES(400,'leo','员工',300,'2019-02-22',3000,200.12,2);
+INSERT INTO emp VALUES(500,'liu','员工',300,'2019-03-19',3500,200.58,2);
+CREATE TABLE `demo_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` char(40) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL,
+  `sex` char(40) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cc` (`id`),
+  KEY `user_index` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8;
+INSERT  INTO `DEMO_USER`(`ID`,`NAME`,`AGE`,`SEX`) VALUES (1,'黑熊精',3000,'男'),(3,'金角大王',3000,'男'),(4,'银角大王',4000,'男'),(5,'唐僧',30,'男'),
+(6,'孙悟空',500,'男'),(7,'白龙驴',2000,'男'),(8,'八戒',502,'男'),(9,'沙悟净',503,'男'),(11,'小乔',17,'女'),(12,'貂蝉',18,'女'),(16,'黄月英',18,'女'),
+(17,'孙尚香',18,'女'),(18,'甄姬C',20,'女'),(21,'孙尚香D',18,'女'),(22,'刘备',40,'男'),(23,'潘凤',35,'男'),(24,'陆逊',33,'男'),(25,'关羽',40,'男'),
+(27,'阿科',20,'女'),(31,'王昭君',19,'女'),(38,'貂蝉',18,'女'),(39,'西施',18,'女'),(40,'严真煌',16,'女'),(41,'白骨精',3000,'女'),(43,'小乔',19,'男'),
+(44,'大乔',19,'女'),(46,'不知火舞',18,'女'),(49,'小兰兰',18,'男'),(50,'柳鹏林',18,'男'),(51,'妲己',18,'男'),(52,'如花',17,'男'),(53,'小明',18,'男'),
+(55,'金刚葫芦娃',7,'男'),(58,'马云',46,'男'),(62,'赵云',18,'男'),(66,'诺克赛斯之手',100,'男'),(68,'复仇炎魂',2000,'男'),(173,'年兽',5000,'公'),
+(182,'霸波尔奔',4000,'男'),(194,'齐天大圣',600,'男'),(196,'猪八戒',8000,'男'),(227,'小法',20,'男');
+set names gbk;--避免中文插入失败(乱码)的唯一解决方案/仅临时生效
+/*基础函数*/
+SELECT ename a,job b FROM emp;--设置别名
+SELECT UPPER(ename) FROM emp;--ename转大写
+SELECT UPPER(ename) ename, UPPER('foxconn') cor FROM emp;--ename转大写并临时增加列cor--LOWER同理
+SELECT ename,LENGTH(ename),job,LENGTH(job) FROM emp;--ename和job的字节长度--一个汉字占三字节
+SELECT ename,SUBSTR(ename,1,3),job,SUBSTR(job,1,1) FROM emp;--截取ename和job--SUBSTR(str,m,n)，m是从1开始的下标位置，n是字符个数--类似于limit和arraycopy
+SELECT ename,CONCAT(ename,UPPER('suffix')) FROM emp;--给每个ename拼接一个后缀SUFFIX--不要把concat错写成substr
+SELECT ename,REPLACE(ename,'a','A') FROM emp;--将ename中的a替换为A
+SELECT comm,IFNULL(comm,100) FROM emp;--将comm中的null替换为100--注意没有100D这种写法
+SELECT comm,ROUND(comm) FROM emp;--四舍五入取整
+SELECT comm,ROUND(comm,1) FROM emp;--四舍五入保留1位小数
+SELECT comm,CEIL(comm),FLOOR(comm) FROM emp;--向上取整/向下取整
+SELECT UUID();--返回UUID
+SELECT NOW(),CURDATE(),CURTIME();--年月日时分秒/年月日/时分秒
+SELECT NOW(),YEAR(NOW()),MONTH(NOW()),DAY(NOW());--年月日时分秒/年/月/日--注意不要把day写成了date--curdate()等价于date(now())
+SELECT NOW(),YEAR(NOW()),MONTH(NOW()),DAY(NOW()) FROM emp;--上句只会返回一行，而这句返回n行相同的数据，n等于select count(*) from emp;
+SELECT "xi'an",'xi\'an','"surprise';--一些用到引号的场景
+/*SELECT Statement*/
+SELECT DISTINCT loc FROM dept;--loc去重--java天然去重/set
+SELECT * FROM dept WHERE 1 = 1;--为方便构造动态的多条件之不确定因素的复杂的正确的查询语句所采取的一种“江湖手段”
+SELECT * FROM dept WHERE 1 = 0;--不会返回任何数据，只有表结构，可用于快速建表
+SELECT * FROM emp WHERE sal IN(3000,8000,10000);--查询集合
+SELECT * FROM emp WHERE sal NOT IN(3000,8000,10000);--查询集合以外
+UPDATE USER SET pwd = 321 WHERE id = 2;--注意user是SQL关键字，不建议使用
+UPDATE USER SET NAME = 'yale' WHERE pwd = 123 AND age = 20;--注意字符串的格式
+SELECT ename,job FROM emp WHERE ename LIKE 't%';--like模糊查询/动态匹配--以x开头是唯一的高效写法
+SELECT ename,job FROM emp WHERE ename LIKE '%a';
+SELECT ename,job FROM emp WHERE ename LIKE '%c%';
+SELECT ename,job FROM emp WHERE ename LIKE '_a__';
+SELECT * FROM emp WHERE mgr IS NULL;--is不能用=替代
+SELECT * FROM emp WHERE mgr IS NOT NULL;
+SELECT ename,hiredate FROM emp WHERE sal > 5000 AND sal < 10000;
+SELECT ename,hiredate FROM emp WHERE sal >= 5000 AND sal <= 10000;
+SELECT ename,hiredate FROM emp WHERE sal BETWEEN 5000 AND 10000;--闭区间
+SELECT * FROM emp LIMIT 2;
+SELECT * FROM emp LIMIT 1,3;--m是从0开始的下标位置，n是条数--类似于substr和arraycopy
+SELECT * FROM emp LIMIT 0,3;
+SELECT ename FROM emp WHERE hiredate BETWEEN '2019-01-01' AND '2019-12-31';--hiredate是DATE类型
+SELECT ename FROM emp WHERE YEAR(hiredate) = 2019;
+SELECT * FROM emp ORDER BY ename;--按照字典顺序排序/中文按照ASCII码排序--慎用order by
+SELECT * FROM emp WHERE DATE_FORMAT(hiredate,"%Y-%m-%d") < "2015-12-31";--排了好久错，才发现我把%Y写成了Y%
+SELECT * FROM emp WHERE YEAR(hiredate) < 2015;
+SELECT * FROM emp WHERE YEAR(DATE_FORMAT(hiredate,'%Y-%m-%d')) <= 2019;--对比YEAR(hiredate)有些冗余
+SELECT * FROM emp WHERE DATE_FORMAT(hiredate,'%Y-%m-%d') <= '2019-12-31';--注意日期均是字符串格式
+SELECT DATEDIFF('2007-12-31 23:59:59','2007-12-30');--1/暂不知道datediff(dd,RDATE,getdate())是否合法
+SELECT DATEDIFF('2010-11-30 23:59:59','2010-12-31');--(-31)/注意是expr1减去expr2！
+SELECT * FROM emp ORDER BY sal DESC LIMIT 1;--2314，先查询，后分页，所以limit应该放在最后
+SELECT * FROM USER WHERE NAME = 'jack' AND pwd = 345;--模拟登录
+INSERT INTO USER VALUES(NULL,'curry','xyz',33);--模拟注册
+SELECT sal,comm,sal + IFNULL(comm,0) FROM emp;--null与数字求和仍为null，因此需要对可能出现null的字段做ifnull运算
+SELECT 100/comm FROM emp WHERE deptno = 1;--数字除以null结果仍为null，MySQL中的ifnull运算就对应Oracle中的NVL运算
+/*聚合aggregation*/
+SELECT COUNT(1) FROM emp;--推荐使用/高效--聚合函数(只有一个结果)：max，min，sum，avg，count
+SELECT COUNT(*) FROM emp;--推荐使用/高版本数据库中也高效--count(*/1)不能忽略null值，不精确
+SELECT COUNT(empno) FROM emp;--count字段时是能识别null值的！
+SELECT COUNT(comm) FROM emp;--判断是否为null/低效
+--SELECT sal,COUNT(comm) FROM emp;--错误写法(一个非聚合列，一个聚合列)，但有的版本并不报错--这种混合列的情况下，要求分组
+SELECT SUM(empno) FROM emp;--sum求字段和，忽略null
+SELECT SUM(job) FROM emp;--对中文求和结果为0
+SELECT MAX(sal) FROM emp;
+SELECT MAX(empno) FROM emp;
+SELECT MAX(job) FROM emp;--对中文求max结果为ASCII码最大值
+SELECT AVG(sal) FROM emp;
+SELECT AVG(empno) FROM emp;--保留了三位小数
+SELECT AVG(job) FROM emp;--对中文求avg结果为0
+SELECT SUM(sal),SUM(comm) FROM emp GROUP BY deptno;--我错把group写成了order
+SELECT COUNT(ename) FROM emp WHERE YEAR(hiredate) < 2019;--2019年以前的入职人数--最好把count(ename)写成count(1)
+SELECT COUNT(ename) FROM emp WHERE DATE_FORMAT(hiredate,"%Y-%m-%d") < 2019;
+SELECT AVG(sal) FROM emp WHERE DATE_FORMAT(hiredate,"%Y-%m-%d") < 2019;--2019年以前老员工的平均月薪
+SELECT MAX(sal) FROM emp WHERE deptno = 2;--2号部门最高薪
+/*分组group*/
+SELECT job,AVG(sal) FROM emp GROUP BY job;--各岗位平均sal/一般按照非聚合列分组
+SELECT job,AVG(sal) FROM emp GROUP BY job HAVING AVG(sal) <= 10000;--having类似于where，常搭配group使用/面试考点--平均sal小于10000的岗位
+SELECT job,COUNT(1) FROM emp GROUP BY job ORDER BY COUNT(1);--各岗位人数并排序/先group后order
+SELECT job,COUNT(1) menbers FROM emp GROUP BY job ORDER BY menbers DESC;--最好给count(1)设置个别名menbers/好几次错写成count(0)
+SELECT empno,ename FROM emp ORDER BY 1;--按照empno排序
+SELECT job,hiredate FROM emp ORDER BY 2;--按照hiredate排序
+SELECT deptno,MAX(sal) FROM emp GROUP BY deptno;--各部门最高薪
+SELECT deptno,COUNT(1) FROM emp GROUP BY deptno;--各部门总人数
+SELECT YEAR(hiredate),COUNT(1) FROM emp GROUP BY YEAR(hiredate);--每年入职总人数
+SELECT YEAR(hiredate),SUM(sal) FROM emp GROUP BY YEAR(hiredate);--每年入职月薪和
+SELECT deptno,COUNT(1) c FROM emp GROUP BY deptno HAVING c > 2;--2341，人数>2的部门
+--SELECT deptno,COUNT(1) FROM emp WHERE c > 2 GROUP BY deptno;--2341，能用where就不要用having，因为where先于having执行--但是where后不能用别名，因为执行顺序不允许，否则报错/Unknown column 'c' in 'where clause'
+SELECT deptno,COUNT(1) FROM emp WHERE COUNT(1) > 2 GROUP BY deptno;--2341，where后也不能用聚合函数，否则报错/Invalid use of group function--这两种情况下都没法用where
+/*事务*/
+START TRANSACTION;--关闭事务的自动提交/高版本数据库中可用begin替代
+INSERT INTO user (id) VALUES(25);--成功
+INSERT INTO user (id) VALUES(5);--已经存在5了，会失败
+--ROLLBACK;--回滚事务
+COMMIT;--手动提交事务
+/*默认约束/检查约束*/
+CREATE TABLE X(
+id INT PRIMARY KEY AUTO_INCREMENT,
+sex CHAR(3) DEFAULT '男'--注意char的长度啊！
+);
+INSERT INTO X VALUES(NULL,NULL);--插入数据时若赋值null，则默认值被覆盖为null
+CREATE TABLE X1(
+id INT PRIMARY KEY AUTO_INCREMENT,
+age INT,
+CHECK(age < 100)--这两种约束都很少用
+);
+--INSERT INTO x1 VALUES(NULL,150);--报错，data modified but not saved
+INSERT INTO x1 VALUES(NULL,23);
+/*外键约束*/
+CREATE TABLE tb_user(--主表
+id INT PRIMARY KEY AUTO_INCREMENT,
+NAME VARCHAR(10),
+age INT
+);
+INSERT INTO tb_user VALUES(NULL,'jack',20);--1
+INSERT INTO tb_user VALUES(NULL,'rose',18);--2
+INSERT INTO tb_user VALUES(NULL,'tony',20);--3
+CREATE TABLE tb_user_addr(--子表/需要描述和主表的关系
+user_id INT PRIMARY KEY,--不能auto_increment，因为有很多约束
+addr VARCHAR(100),
+FOREIGN KEY(user_id) REFERENCES tb_user(id)--外键简称fk/foreign key(当前表主键) references 对方表(对方表主键)--避免存储相同数据以节约内存
+);
+INSERT INTO tb_user_addr VALUES(1,'北京');
+--INSERT INTO tb_user_addr VALUES(10,'上海');--报错，cannot add or update a child row: a foreign key constraint fails/子表中的主键值须取自主表
+INSERT INTO tb_user_addr VALUES(2,'深圳');
+--DELETE FROM tb_user WHERE NAME = 'rose';--报错，cannot delete or update a parent row: a foreign key constraint fails/想要删除主表的记录，须保证子表没用过
+DELETE FROM tb_user WHERE NAME = 'tony';
+/*多表联查*/--未涉及到外键约束
+drop table if exists courses;
+drop table if exists scores;
+drop table if exists students;
+drop table if exists teachers;
+create table courses(
+cno varchar(5) not null,
+cname varchar(10) not null,
+tno varchar(3) not null,
+primary key (cno)--指定主键/非常用写法
+);
+create table scores(
+sno varchar(3) not null,
+cno varchar(5) not null,
+degree numeric(10,1) not null,
+primary key (sno, cno)--联合主键/非常用写法
+);
+create table students(
+sno varchar(3) not null,
+sname varchar(4) not null,
+ssex varchar(2) not null,
+sbirthday datetime,
+class varchar(5),
+primary key (sno)
+);
+create table teachers(
+tno varchar(3) not null,
+tname varchar(4),
+tsex varchar(2),
+tbirthday datetime,
+prof varchar(6),
+depart varchar(10),
+primary key (tno)
+);
+INSERT INTO STUDENTS(SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES(108 ,'曾华' ,'男' ,'1977-09-01',95033);--1976-02-20 00:00:00/未指定time部分默认存00:00:00
+INSERT INTO STUDENTS(SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES(105 ,'匡明' ,'男' ,'1975-10-02',95031);
+INSERT INTO STUDENTS(SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES(107 ,'王丽' ,'女' ,'1976-01-23',95033);
+INSERT INTO STUDENTS(SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES(101 ,'李军' ,'男' ,'1976-02-20',95033);
+INSERT INTO STUDENTS(SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES(109 ,'王芳' ,'女' ,'1975-02-10',95031);
+INSERT INTO STUDENTS(SNO,SNAME,SSEX,SBIRTHDAY,CLASS) VALUES(103 ,'陆君' ,'男' ,'1974-06-03',95031);
+INSERT INTO TEACHERS(TNO,TNAME,TSEX,TBIRTHDAY,PROF,DEPART) VALUES(804,'易天','男','1958-12-02','副教授','计算机系');
+INSERT INTO TEACHERS(TNO,TNAME,TSEX,TBIRTHDAY,PROF,DEPART) VALUES(856,'王旭','男','1969-03-12','讲师','电子工程系');
+INSERT INTO TEACHERS(TNO,TNAME,TSEX,TBIRTHDAY,PROF,DEPART) VALUES(825,'李萍','女','1972-05-05','助教','计算机系');
+INSERT INTO TEACHERS(TNO,TNAME,TSEX,TBIRTHDAY,PROF,DEPART) VALUES(831,'陈冰','女','1977-08-14','助教','电子工程系');
+INSERT INTO COURSES(CNO,CNAME,TNO) VALUES('3-105' ,'计算机导论',825);
+INSERT INTO COURSES(CNO,CNAME,TNO) VALUES('3-245' ,'操作系统' ,804);
+INSERT INTO COURSES(CNO,CNAME,TNO) VALUES('6-166' ,'模拟电路' ,856);
+INSERT INTO COURSES(CNO,CNAME,TNO) VALUES('6-106' ,'概率论' ,831);
+INSERT INTO COURSES(CNO,CNAME,TNO) VALUES('9-888' ,'高等数学' ,831);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(103,'3-245',86);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(105,'3-245',75);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(109,'3-245',68);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(103,'3-105',92);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(105,'3-105',88);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(109,'3-105',76);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(101,'3-105',64);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(107,'3-105',91);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(108,'3-105',78);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(101,'6-166',85);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(107,'6-106',79);
+INSERT INTO SCORES(SNO,CNO,DEGREE) VALUES(108,'6-166',81);
+SELECT * FROM dept,emp;--多表之间用逗号连接，用where来描述表间关系
+SELECT * FROM dept,emp WHERE dept.deptno = emp.deptno;--查询部门表和员工表的所有数据--笛卡尔积/低效--表名.字段名=表名.字段名--添加查询推荐，根据deptno建立关系
+SELECT * FROM courses,teachers;--多表之间用逗号连接，用where来描述表间关系
+SELECT * FROM courses,teachers WHERE courses.tno = teachers.tno;--查询课程表和老师表的所有数据--笛卡尔积--表名.字段名=表名.字段名--添加查询推荐，根据tno建立关系
+SELECT courses.*,teachers.* FROM courses,teachers WHERE courses.tno = teachers.tno;--完整写法
+--SELECT emp.ename FROM emp WHERE emp.deptno = dept.deptno AND dept.loc = '一区';--查询在一区办公的员工的名字/错误写法
+SELECT emp.ename FROM emp,dept WHERE emp.deptno = dept.deptno AND dept.loc = '一区';--查询在一区办公的员工的名字--笛卡尔积
+--SELECT * FROM emp,dept WHERE dept.dname = 'research';--查询research部门的员工信息/错误写法
+SELECT emp.* FROM emp,dept WHERE emp.deptno = dept.deptno AND dept.dname = 'research';--查询research部门的员工信息--笛卡尔积
+SELECT emp.*,COUNT(1) FROM emp,dept WHERE emp.deptno = dept.deptno AND dept.dname = 'research' GROUP BY emp.deptno;--查询research部门的员工数/聚合列分组写法
+SELECT a.*,COUNT(1) FROM emp a,dept b WHERE a.deptno = b.deptno AND b.dname = 'research' GROUP BY a.deptno;--查询research部门的员工数--from是最先执行的，所以这里where后可以跟表名的别名！
+SELECT COUNT(1) FROM emp,dept WHERE emp.deptno = dept.deptno AND dept.dname = 'research';--查询research部门的员工数/简洁写法
+SELECT emp.ename FROM emp JOIN dept ON emp.deptno = dept.deptno WHERE dept.loc = '一区';--查询在一区办公的员工的名字--连接查询
+SELECT * FROM emp JOIN dept ON emp.deptno = dept.deptno;--查询课程表和老师表的所有数据--连接查询
+SELECT emp.* FROM emp JOIN dept ON emp.deptno = dept.deptno WHERE dept.dname = 'research';--查询research部门的员工信息--连接查询
+SELECT courses.cname FROM courses JOIN teachers ON courses.tno = teachers.tno WHERE teachers.tname = '易天';--查询易天老师所授课程--连接查询
+SELECT SUM(scores.degree) FROM scores JOIN students ON scores.sno = students.sno WHERE students.sname = '李军';--查询学员李军的总得分/遇到join就不要忘了on
+SELECT * FROM dept INNER JOIN emp ON dept.deptno = emp.deptno;--inner join时，on可以改为where(left join和rightjoin都不可以)--只写join时默认为inner join--三种连接查询的区别
+SELECT * FROM dept LEFT JOIN emp ON dept.deptno = emp.deptno;--2431(小表无条件加载/小表驱动大表)，dept中dname为operations时，emp表全为null--常用情况
+SELECT * FROM dept RIGHT JOIN emp ON dept.deptno = emp.deptno;--查询部门表和员工表的所有数据
+SELECT * FROM emp WHERE emp.deptno = (SELECT dept.deptno FROM dept WHERE dept.dname = 'accounting');--查询accounting部门的员工信息--子查询
+SELECT * FROM emp WHERE deptno = (SELECT deptno FROM dept WHERE dname = 'accounting');--查询accounting部门的员工信息--简洁写法
+SELECT dept.dname FROM dept WHERE dept.deptno = (SELECT emp.deptno FROM emp WHERE emp.ename = 'tony');--查询tony所在部门--子查询
+SELECT dname FROM dept WHERE deptno = (SELECT deptno FROM emp WHERE ename = 'tony');--查询tony所在部门--简洁写法
+--SELECT emp.ename FROM emp WHERE emp.deptno = (SELECT dept.deptno FROM dept WHERE dept.loc = '二区');--报错/Subquery returns more than 1 row，因为二区有两个部门编号
+SELECT emp.ename FROM emp WHERE emp.deptno IN(SELECT dept.deptno FROM dept WHERE dept.loc = '二区');--查询在二区办公的员工的名字--子查询
+SELECT ename FROM emp WHERE deptno IN(SELECT deptno FROM dept WHERE loc = '二区');--查询在二区办公的员工的名字--简洁写法
+SELECT emp.* FROM emp WHERE emp.sal > (SELECT AVG(emp.sal) FROM emp);--查询高于平均薪资的员工信息--子查询
+SELECT * FROM emp WHERE sal > (SELECT AVG(sal) FROM emp);--查询高于平均薪资的员工信息--简洁写法
+SELECT s1 FROM t1 WHERE s1 > ANY (TABLE t2);--syntax；只要有一条数据满足条件，整个条件成立
+SELECT s1 FROM t1 WHERE s1 = ANY (TABLE t2);-->= ANY好像没有逻辑问题？
+SELECT s1 FROM t1 WHERE s1 IN (TABLE t2);--the word IN is an alias for = ANY
+SELECT s1 FROM t1 WHERE s1 <> ANY  (TABLE t2);
+SELECT s1 FROM t1 WHERE s1 <> SOME (TABLE t2);--the word SOME is an alias for ANY
+SELECT s1 FROM t1 WHERE s1 > ALL (SELECT s1 FROM t2);--syntax；对所有数据都满足条件，整个条件才成立
+SELECT * FROM t1 WHERE 1 > ALL (SELECT s1 FROM t2);--如果t2为空，结果为true；查字段
+SELECT * FROM t1 WHERE 1 > (SELECT s1 FROM t2);--如果t2为空，结果为null；查字段
+SELECT * FROM t1 WHERE 1 > ALL (SELECT MAX(s1) FROM t2);--如果t2为空，结果为null；查max
+SELECT s1 FROM t1 WHERE s1 <> ALL (SELECT s1 FROM t2);
+SELECT s1 FROM t1 WHERE s1 NOT IN (SELECT s1 FROM t2);--NOT IN is an alias for <> ALL
+/*SQL的执行顺序*/
+(1)FROM [left_table]--选择表/左表
+(2)ON <join_condition>--连接条件
+(3)<join_type> JOIN <right_table>--连接/右表
+(4)WHERE <where_condition>--条件过滤/此时未执行到select别名-但已执行到from别名
+(5)GROUP BY <group_by_list>--分组
+(6)AGG_FUNC(COLUMN OR expression),...--聚合
+(7)HAVING <having_condition>--分组过滤
+(8)SELECT (9) DISTINCT COLUMN,...--选择字段、去重
+(9)ORDER BY <order_by_list>--排序
+(10)LIMIT COUNT OFFSET COUNT;--分页
+/*索引*/
+SHOW INDEX FROM dept;
+CREATE INDEX dname_index ON dept(dname);--自定义索引/CREATE INDEX 索引名字 ON 表名(字段名)--给常用字段加索引
+CREATE INDEX ename_index ON emp(ename);
+EXPLAIN SELECT * FROM dept WHERE dname = 'research';--key/dname_index--查看SQL的执行计划/性能--面试考点
+EXPLAIN SELECT * FROM emp WHERE ename = 'jack';--key/ename_index
+--CREATE UNIQUE INDEX loc_index ON dept(loc);--报错/Duplicate entry '二区' for key 'loc_index'
+ALTER TABLE dept DROP INDEX ename_index;--删除索引
+--CREATE UNIQUE INDEX dname_index ON dept(dname);--报错/DUPLICATE KEY NAME 'dname_index'
+CREATE UNIQUE INDEX dname_index1 ON dept(dname);--自定义唯一索引--CREATE INDEX 索引名字 ON 表名(字段名)--给不可重复字段加唯一索引
+EXPLAIN SELECT * FROM dept WHERE dname = 'research';--possible_keys/dname_index1,dname_index--key/dname_index1--优先使用唯一索引
+EXPLAIN SELECT * FROM dept WHERE dname LIKE 'a%';--key/dname_index1--高效模糊查询
+EXPLAIN SELECT * FROM dept WHERE dname LIKE '%a%';--key/null--普通模糊查询/索引失效
+EXPLAIN SELECT * FROM dept WHERE dname LIKE '%g';--key/null--普通模糊查询/索引失效
+CREATE INDEX Pindex ON emp(job,deptno);--自定义复合索引--CREATE INDEX 复合索引名 ON 表名 (字段1, 字段2)
+EXPLAIN SELECT * FROM emp WHERE job = '员工' AND deptno = 2;--key/Pindex
+EXPLAIN SELECT * FROM emp WHERE job = '员工';--key/Pindex
+EXPLAIN SELECT * FROM emp WHERE deptno = 2;--key/null--最左特性/索引失效
+EXPLAIN SELECT * FROM emp WHERE job = '员工' OR deptno = 2;--key/null--最左特性/索引失效
+/*视图*/
+CREATE VIEW ename_view AS SELECT emp.* FROM emp WHERE emp.ename LIKE '%a%';--查询名字里包含a的员工信息--CREATE VIEW 视图名 AS SQL语句
+SELECT * FROM ename_view;--使用视图
+DROP VIEW ename_view;--删除视图
+/*Stored Procedure*/
+CREATE PROCEDURE citycount (IN country CHAR(3), OUT cities INT)--given a country code, counts the number of cities for that country that appear in the city table of the world database
+BEGIN SELECT COUNT(*) INTO cities FROM world.city WHERE CountryCode = country;
+END
+CALL citycount('JPN', @cities);
+SELECT @cities;
+CALL citycount('FRA', @cities);
+SELECT @cities;
+/*SQL优化*/
+CREATE INDEX name_index ON student(NAME);--字符串怪现象--仅字符串类型字段/数值类型字段索引不会失效
+EXPLAIN SELECT * FROM student WHERE student.name = 123;--possible_keys/name_index,key/null--本来是字符串但使用数字检索(类型不匹配)-MySQL隐式把它们转换为数值类型再做比较/索引失效--数据库对数字较松懈
+EXPLAIN SELECT * FROM student WHERE student.name = '123';--possible_keys/name_index,key/name_index
+INSERT INTO dept(dname,loc) VALUES('ios','北京');--给指定字段设置值
+INSERT INTO dept(dname) VALUES('android'),('rust');--批量插入/只开启和关闭一次事务
+SELECT job,AVG(sal) FROM emp GROUP BY job HAVING job ='总监' OR job = '经理';--先分组-后过滤
+SELECT job,AVG(sal) FROM emp WHERE job ='总监' OR job = '经理' GROUP BY job;--在执行到group by语句前-把不需要的记录过滤掉以提高执行效率/先过滤-后分组
+/*Flow Control Statements*/
+CASE case_value WHEN when_value THEN statement_list [WHEN when_value THEN statement_list] ... [ELSE statement_list] END CASE--syntax
+CASE WHEN search_condition THEN statement_list [WHEN search_condition THEN statement_list] ... [ELSE statement_list] END CASE--syntax
+SELECT sal,comm,sal + IFNULL(comm,0) FROM emp;--null
+SELECT 100/comm FROM emp WHERE deptno = 1;--null
+SELECT IFNULL(1,0);--1
+SELECT IFNULL(NULL,10);--10
+SELECT IFNULL(1/0,10);--10
+SELECT IFNULL(1/0,'yes');--yes
+SELECT IF(1>2,2,3);--3
+SELECT IF(1<2,'yes','no');--yes
+SELECT IF(STRCMP('test','test1'),'no','yes');--no
+/*String Functions and Operators*/
+SELECT STRCMP('text', 'text2');--(-1)
+SELECT STRCMP('text2', 'text');--1
+SELECT STRCMP('text', 'text');--0
+SELECT ename,job FROM emp WHERE ename LIKE 't%';
+SELECT ename,job FROM emp WHERE ename LIKE '%a';
+SELECT ename,job FROM emp WHERE ename LIKE '%c%';
+SELECT ename,job FROM emp WHERE ename LIKE '_a__';
+/*表的转置*/
+CREATE TABLE student_transpose(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(10),
+    course varchar(10),
+    score int(10)
+);
+INSERT INTO student_transpose
+VALUES (NULL, 'Yale', 'Chinese', 90),
+       (NULL, 'Curry', 'Chinese', 70),
+       (NULL, 'Yale', 'Math', 70),
+       (NULL, 'Curry', 'Math', 80);
+SELECT name,
+       sum(if(course = 'Chinese', score, 0)) AS Chinese,
+       sum(if(course = 'Math', score, 0))    AS Math
+FROM student_transpose
+GROUP BY name;
+/*jt*/
+DROP TABLE IF EXISTS `rights`;
+CREATE TABLE `rights` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(40) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `path` varchar(50) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;--创建权限表
+SELECT p.*,
+       s.id        s_id,
+       s.name      s_name,
+       s.parent_id s_parent_id,
+       s.path      s_path,
+       s.level     s_level,
+       s.created   s_created,
+       s.updated   s_updated
+FROM rights p,
+     rights s
+WHERE p.level = 1
+  AND p.id = s.parent_id;--权限表导航菜单展示/查询1-2级的关联数据
+SELECT p.id pid,p.name pname,p.level plevel,s.* 
+FROM rights p,rights s WHERE p.id=s.parent_id AND s.level=2;--查询所有2级菜单及其父级的基本信息
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
